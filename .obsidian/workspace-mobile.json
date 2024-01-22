@@ -21,7 +21,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Test2.md",
+                "file": "Design Doc.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "Test2.md",
+            "file": "Design Doc.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
         "state": {
           "type": "outgoing-link",
           "state": {
-            "file": "Test2.md",
+            "file": "Design Doc.md",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
           }
@@ -123,7 +123,7 @@
         "state": {
           "type": "outline",
           "state": {
-            "file": "Test2.md"
+            "file": "Design Doc.md"
           }
         }
       }
@@ -142,7 +142,7 @@
   },
   "active": "8f1f2e9cd5f023e8",
   "lastOpenFiles": [
-    "Test2.md",
+    "Design Doc.md",
     "Test"
   ]
 }

@@ -16,8 +16,6 @@ An idle space faring game, that you can play in your browser
 
 ## Modules System
 
-Based on the information provided, the module system in Stellar Nexus seems to be a versatile and progressive feature. Here's a description:
-
 **Modules System (first response, check if everything is in the second):**
 *Stellar Nexus offers a modular system where players enhance their spaceship's capabilities by acquiring and upgrading various modules. These modules serve diverse functions, from core ship components to specialized tools for trade and exploration. Upgrades may range from optimizing existing modules to integrating entirely new functionalities. For instance, players can invest in modules that improve navigation, protect against pirate attacks, expand cargo capacity, or enable advanced scanning of star systems. The flexibility of the module system empowers players to customize their ship according to their preferred playstyle, allowing for a dynamic and strategic progression throughout their interstellar journey.*
 

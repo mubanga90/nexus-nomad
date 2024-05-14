@@ -5,7 +5,8 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #181927;
+  background: linear-gradient(10deg, #4e3545 0%, #242037 50%, #181927 100%);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,67 +14,41 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
+  padding: 0;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+/* CSS HEX
+--steel-gray: #2a2437;
+--santas-gray: #a8a4b8;
+--falcon: #755f6c;
+--mulled-wine: #4e4d72;
+--mulled-wine: #483d5a;
+--matterhorn: #4e3545;
+--waterloo-: #8182a1;
+--bali-hai: #8d9aad;
+--abbey: #545c63;
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
-.card {
-  padding: 2em;
-}
+$steel-gray: #2a2437;
+$santas-gray: #a8a4b8;
+$falcon: #755f6c;
+$mulled-wine: #4e4d72;
+$mulled-wine: #483d5a;
+$matterhorn: #4e3545;
+$waterloo-: #8182a1;
+$bali-hai: #8d9aad;
+$abbey: #545c63;
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+--steel-gray: rgba(42,36,55,1);
+--santas-gray: rgba(168,164,184,1);
+--falcon: rgba(117,95,108,1);
+--mulled-wine: rgba(78,77,114,1);
+--mulled-wine: rgba(72,61,90,1);
+--matterhorn: rgba(78,53,69,1);
+--waterloo-: rgba(129,130,161,1);
+--bali-hai: rgba(141,154,173,1);
+--abbey: rgba(84,92,99,1); */

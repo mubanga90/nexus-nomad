@@ -1,0 +1,38 @@
+{
+	"prettier": true,
+	"ignores": ["docs/**/*.js", "src/vite-env.d.ts"],
+	"rules": {
+		"import/extensions": "off",
+		"radix": ["error", "as-needed"],
+		"no-labels": [
+			"error",
+			{
+				"allowLoop": true
+			}
+		],
+		"max-lines": [
+			"error",
+			{
+				"max": 150,
+				"skipComments": true,
+				"skipBlankLines": true
+			}
+		],
+		"max-lines-per-function": [
+			"error",
+			{
+				"max": 15,
+				"skipBlankLines": true,
+				"skipComments": true
+			}
+		],
+		"max-depth": ["error", 2],
+		"max-params": ["error", 2],
+		"unicorn/filename-case": [
+			"error",
+			{
+				"case": "camelCase"
+			}
+		]
+	}
+}

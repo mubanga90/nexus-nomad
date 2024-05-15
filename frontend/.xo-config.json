@@ -1,6 +1,6 @@
 {
 	"prettier": true,
-	"ignores": ["docs/**/*.js", "src/vite-env.d.ts"],
+	"ignores": ["vite.config.ts", "src/vite-env.d.ts"],
 	"rules": {
 		"import/extensions": "off",
 		"radix": ["error", "as-needed"],
@@ -31,7 +31,7 @@
 		"unicorn/filename-case": [
 			"error",
 			{
-				"case": "camelCase"
+				"case": "pascalCase"
 			}
 		]
 	}

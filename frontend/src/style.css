@@ -1,23 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Inter:wght@100..900&display=swap');
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.87);
-  text-rendering: optimizeLegibility;
+	font-family: Inter, sans-serif;
+	font-weight: 400;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	line-height: 1.5;
+	color: rgba(255, 255, 255, 0.87);
+	text-rendering: optimizeLegibility;
 
-  color-scheme: light dark;
-  background: linear-gradient(10deg, #4e3545 0%, #242037 50%, #181927 100%);
-  background-color: #181927;
+	color-scheme: light dark;
+	background: linear-gradient(10deg, #4e3545 0%, #242037 50%, #181927 100%);
+	background-color: #181927;
 
-  font-synthesis: none;
+	font-synthesis: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Abel', sans-serif;
+	font-weight: 400;
 }
 
 body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
+	min-height: 100vh;
+	margin: 0;
+	padding: 0;
 }
 
 /* CSS HEX

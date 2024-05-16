@@ -1,5 +1,6 @@
 type Star = {
-	position: { x: number; y: number };
+	position: Position;
+	brightness: number;
 };
 
 export type { Star };

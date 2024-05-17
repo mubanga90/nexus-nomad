@@ -33,6 +33,7 @@
 			{
 				"case": "pascalCase"
 			}
-		]
+		],
+		"guard-for-in": "off"
 	}
 }

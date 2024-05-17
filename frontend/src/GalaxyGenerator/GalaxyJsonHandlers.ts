@@ -1,30 +1,43 @@
-import { type Star } from '@/types/Star';
+import type Position from '@/types/Position';
+import type { Star, StarClassification } from '@/types/Star';
 
-const GalxyToJson = (galaxy: Star[], pretty = false): string => {
-	const shortendGalaxy = pretty
-		? galaxy
-		: galaxy.map((star) => {
-				return {
-					n: star.name,
-					p: star.position,
-					c: star.classification,
-					t: star.temperature,
-					m: star.mass,
-					s: star.size,
-					l: star.luminosity,
-				};
-			});
-	return JSON.stringify(shortendGalaxy, null, pretty ? 4 : 0);
+type ShortenedStar = {
+	n: string;
+	p: { x: number; y: number; z: number };
+	c: string;
+	t: number;
+	m: number;
+	s: number;
+	l: number;
 };
 
-const convertGalaxy = (galaxy: any): Star[] => {
-	if (galaxy.length > 0 && galaxy[0].name) return galaxy as Star[];
+const galaxyToJson = (galaxy: Star[], pretty = false): string => {
+	const shortenedGalaxy = pretty
+		? galaxy
+		: galaxy.map((star) => mapStarToShortenedForm(star));
+	return JSON.stringify(shortenedGalaxy, null, pretty ? 4 : 0);
+};
 
-	return galaxy.map((star: any) => {
+const mapStarToShortenedForm = (star: Star) => {
+	return {
+		n: star.name,
+		p: star.position,
+		c: star.classification,
+		t: star.temperature,
+		m: star.mass,
+		s: star.size,
+		l: star.luminosity,
+	};
+};
+
+const convertGalaxy = (galaxy: ShortenedStar[] | Star[]): Star[] => {
+	if (isStarArray(galaxy)) return galaxy;
+
+	return galaxy.map((star: ShortenedStar): Star => {
 		return {
 			name: star.n,
-			position: star.p,
-			classification: star.c,
+			position: star.p as Position,
+			classification: star.c as StarClassification,
 			temperature: star.t,
 			mass: star.m,
 			size: star.s,
@@ -33,4 +46,8 @@ const convertGalaxy = (galaxy: any): Star[] => {
 	});
 };
 
-export { GalxyToJson, convertGalaxy };
+const isStarArray = (galaxy: any): galaxy is Star[] => {
+	return galaxy.length > 0 && typeof galaxy[0].name === 'string';
+};
+
+export { galaxyToJson, convertGalaxy };

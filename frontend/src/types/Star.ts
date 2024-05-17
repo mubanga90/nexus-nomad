@@ -1,3 +1,5 @@
+import type Position from '@/types/Position';
+
 type Star = {
 	name: string;
 	position: Position;

@@ -3,3 +3,5 @@ type Position = {
 	y: number;
 	z: number;
 };
+
+export default Position;

@@ -18,8 +18,8 @@ const generateGalaxy = (parameters: GalaxyParameters): Star[] => {
 	global.random = randomNumberGenerator(parameters.seed);
 	const galaxy = [];
 
-	for (let i = 0; i < parameters.arms; i++) {
-		const arm = createArm(parameters, i);
+	for (let index = 0; index < parameters.arms; index++) {
+		const arm = createArm(parameters, index);
 		galaxy.push(...arm);
 	}
 
@@ -51,8 +51,8 @@ const isStarTooClose = (
 	star: Star,
 	galaxy: Star[],
 	minimumDistance: number
-): boolean => {
-	return galaxy.some((otherStar) => {
+): boolean =>
+	galaxy.some((otherStar) => {
 		if (star === otherStar) return false;
 		const distance = calculateDistanceBetweenStars(
 			star.position,
@@ -60,7 +60,6 @@ const isStarTooClose = (
 		);
 		return distance < minimumDistance;
 	});
-};
 
 const createArm = (parameters: GalaxyParameters, armNumber: number): Star[] => {
 	const arm = [];

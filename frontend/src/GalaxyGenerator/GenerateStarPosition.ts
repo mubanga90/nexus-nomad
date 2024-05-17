@@ -16,24 +16,19 @@ const generateStarPosition = (
 	return position;
 };
 
-const calculatePositionOnArm = (parameters: GalaxyParameters): Position => {
-	return {
-		x: normalDistribution(0, 1) * parameters.width,
-		y: normalDistribution(0, 1) * parameters.deviationFromArmY,
-		z: normalDistribution(0, 1) * parameters.deviationFromArmZ,
-	};
-};
+const calculatePositionOnArm = (parameters: GalaxyParameters): Position => ({
+	x: normalDistribution(0, 1) * parameters.width,
+	y: normalDistribution(0, 1) * parameters.deviationFromArmY,
+	z: normalDistribution(0, 1) * parameters.deviationFromArmZ,
+});
 
 const calculateLocalRotation = (
 	parameters: GalaxyParameters,
 	armRotation: number,
 	positionOnArm: Position
-): number => {
-	return (
-		armRotation +
-		(Math.abs(positionOnArm.x) / parameters.width) * parameters.spiralAngle
-	);
-};
+): number =>
+	armRotation +
+	(Math.abs(positionOnArm.x) / parameters.width) * parameters.spiralAngle;
 
 const calculateStarCoordinates = (
 	localRotation: number,

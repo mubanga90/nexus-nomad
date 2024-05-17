@@ -15,26 +15,24 @@ const galaxyToJson = (galaxy: Star[], pretty = false): string => {
 	const shortenedGalaxy = pretty
 		? galaxy
 		: galaxy.map((star) => mapStarToShortenedForm(star));
-	return JSON.stringify(shortenedGalaxy, null, pretty ? 4 : 0);
+	return JSON.stringify(shortenedGalaxy, undefined, pretty ? 4 : 0);
 };
 
-const mapStarToShortenedForm = (star: Star) => {
-	return {
-		n: star.name,
-		p: star.position,
-		c: star.classification,
-		t: star.temperature,
-		m: star.mass,
-		s: star.size,
-		l: star.luminosity,
-	};
-};
+const mapStarToShortenedForm = (star: Star) => ({
+	n: star.name,
+	p: star.position,
+	c: star.classification,
+	t: star.temperature,
+	m: star.mass,
+	s: star.size,
+	l: star.luminosity,
+});
 
 const convertGalaxy = (galaxy: ShortenedStar[] | Star[]): Star[] => {
 	if (isStarArray(galaxy)) return galaxy;
 
-	return galaxy.map((star: ShortenedStar): Star => {
-		return {
+	return galaxy.map(
+		(star: ShortenedStar): Star => ({
 			name: star.n,
 			position: star.p as Position,
 			classification: star.c as StarClassification,
@@ -42,12 +40,11 @@ const convertGalaxy = (galaxy: ShortenedStar[] | Star[]): Star[] => {
 			mass: star.m,
 			size: star.s,
 			luminosity: star.l,
-		};
-	});
+		})
+	);
 };
 
-const isStarArray = (galaxy: any): galaxy is Star[] => {
-	return galaxy.length > 0 && typeof galaxy[0].name === 'string';
-};
+const isStarArray = (galaxy: any): galaxy is Star[] =>
+	galaxy.length > 0 && typeof galaxy[0].name === 'string';
 
 export { galaxyToJson, convertGalaxy };

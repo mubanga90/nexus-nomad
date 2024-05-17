@@ -1,6 +1,13 @@
 type Star = {
+	name: string;
 	position: Position;
-	brightness: number;
+	classification: StarClassification;
+	temperature: number;
+	mass: number;
+	size: number;
+	luminosity: number;
 };
 
-export type { Star };
+type StarClassification = 'O' | 'B' | 'A' | 'F' | 'G' | 'K' | 'M';
+
+export type { Star, StarClassification };

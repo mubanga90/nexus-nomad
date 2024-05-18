@@ -1,0 +1,74 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": ["xo", "plugin:unicorn/recommended", "prettier"],
+	"overrides": [
+		{
+			"extends": ["xo-typescript", "plugin:unicorn/recommended", "prettier"],
+			"files": ["*.ts", "*.tsx"]
+		},
+		{
+			"extends": [
+				"xo-typescript",
+				"plugin:unicorn/recommended",
+				"plugin:vue/vue3-recommended",
+				"prettier"
+			],
+			"rules": {
+				"unicorn/filename-case": [
+					"error",
+					{
+						"case": "pascalCase"
+					}
+				]
+			},
+			"files": ["*.vue"]
+		}
+	],
+	"parser": "vue-eslint-parser",
+	"parserOptions": {
+		"parser": "@typescript-eslint/parser",
+		"ecmaVersion": "latest",
+		"sourceType": "module",
+		"extraFileExtensions": [".vue"]
+	},
+	"plugins": ["vue", "prettier"],
+	"rules": {
+		"prettier/prettier": "error",
+		"import/extensions": "off",
+		"radix": ["error", "as-needed"],
+		"no-labels": [
+			"error",
+			{
+				"allowLoop": true
+			}
+		],
+		"max-lines": [
+			"error",
+			{
+				"max": 150,
+				"skipComments": true,
+				"skipBlankLines": true
+			}
+		],
+		"max-lines-per-function": [
+			"error",
+			{
+				"max": 15,
+				"skipBlankLines": true,
+				"skipComments": true
+			}
+		],
+		"max-depth": ["error", 2],
+		"max-params": ["error", 3],
+		"unicorn/filename-case": [
+			"error",
+			{
+				"case": "pascalCase"
+			}
+		],
+		"guard-for-in": "off"
+	}
+}

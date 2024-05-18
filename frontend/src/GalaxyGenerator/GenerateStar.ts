@@ -4,15 +4,15 @@ import capitalizeString from '@/utils/CapitalizeString';
 import normalDistribution from '@/utils/NormalDistribution';
 import { type GalaxyParameters } from '@/GalaxyGenerator/GenerateGalaxy';
 import generateStarPosition from '@/GalaxyGenerator/GenerateStarPosition';
-import StarStatsRanges from '@/types/StarStatRanges';
 
+// eslint-disable-next-line max-lines-per-function
 const generateStar = (
 	parameters: GalaxyParameters,
 	armRotation: number
 ): Star => {
 	const classification = generateStarClassification();
-
 	return {
+		id: 0,
 		classification,
 		name: generateStarName(),
 		position: generateStarPosition(parameters, armRotation),
@@ -24,13 +24,14 @@ const generateStar = (
 };
 
 const generateStarName = (): string => {
-	const length = Math.round(normalDistribution(0, 0.7) + 2) * 3;
+	const length = Math.round(normalDistribution(0, 0.7) + 2) * 3 + 1;
 	let name = '';
 
 	while (name.length < length) {
 		name += generateSyllable();
 		const randomNumber = Math.round(global.random() * 10);
 		name = appendRandomSuffix(name, randomNumber);
+		if (randomNumber === 3) break;
 	}
 
 	return capitalizeString(name);

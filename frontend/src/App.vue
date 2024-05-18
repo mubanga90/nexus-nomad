@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import StarMap from './components/Modules/StarMap.vue';
+import StarMap from './components/Modules/StarMap/StarMap.vue';
 </script>
 
 <template>

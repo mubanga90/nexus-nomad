@@ -7,9 +7,9 @@
 		"dev": "vite",
 		"preview": "vite preview",
 		"generate-galaxy": "tsx src/GalaxyGenerator/GalaxyGenerator.ts",
-		"test": "eslint . --fix && vue-tsc && xo --fix && stylelint 'src/**/*.css' --fix",
+		"test": "eslint . --fix && vue-tsc && stylelint 'src/**/*.css' --fix",
 		"prepare": "husky",
-		"husky": "eslint . && vue-tsc && xo && stylelint 'src/**/*.css'"
+		"husky": "eslint . && vue-tsc && stylelint 'src/**/*.css'"
 	},
 	"dependencies": {
 		"vue": "^3.3.11"

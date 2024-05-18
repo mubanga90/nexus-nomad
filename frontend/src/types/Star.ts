@@ -1,6 +1,7 @@
 import type Position from '@/types/Position';
 
 type Star = {
+	id: number;
 	name: string;
 	position: Position;
 	classification: StarClassification;

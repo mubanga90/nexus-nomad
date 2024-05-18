@@ -23,7 +23,7 @@ const generateGalaxy = (parameters: GalaxyParameters): Star[] => {
 		galaxy.push(...arm);
 	}
 
-	const filteredGalaxy = filterStarsThatAreTooClose(
+	const filteredGalaxy = filterStarsAndAssignIndex(
 		galaxy,
 		parameters.minimumDistance
 	);
@@ -32,14 +32,16 @@ const generateGalaxy = (parameters: GalaxyParameters): Star[] => {
 
 // Each star is checked against all other stars, this result in a O(n^2) complexity
 // This is not a problem for small galaxies, but for large galaxies this can be a performance bottleneck
-const filterStarsThatAreTooClose = (
+const filterStarsAndAssignIndex = (
 	galaxy: Star[],
 	minimumDistance: number
 ): Star[] => {
 	const filteredGalaxy: Star[] = [];
+	let index = 0;
 
 	for (const star of galaxy) {
-		if (!isStarTooClose(star, galaxy, minimumDistance)) {
+		if (!isStarTooCloseOrHasSameName(star, galaxy, minimumDistance)) {
+			star.id = index++;
 			filteredGalaxy.push(star);
 		}
 	}
@@ -47,7 +49,7 @@ const filterStarsThatAreTooClose = (
 	return filteredGalaxy;
 };
 
-const isStarTooClose = (
+const isStarTooCloseOrHasSameName = (
 	star: Star,
 	galaxy: Star[],
 	minimumDistance: number
@@ -58,7 +60,7 @@ const isStarTooClose = (
 			star.position,
 			otherStar.position
 		);
-		return distance < minimumDistance;
+		return distance < minimumDistance || star.name === otherStar.name;
 	});
 
 const createArm = (parameters: GalaxyParameters, armNumber: number): Star[] => {

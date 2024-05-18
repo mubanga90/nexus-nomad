@@ -2,6 +2,7 @@ import type Position from '@/types/Position';
 import type { Star, StarClassification } from '@/types/Star';
 
 type ShortenedStar = {
+	i: number;
 	n: string;
 	p: { x: number; y: number; z: number };
 	c: string;
@@ -19,6 +20,7 @@ const galaxyToJson = (galaxy: Star[], pretty = false): string => {
 };
 
 const mapStarToShortenedForm = (star: Star) => ({
+	i: star.id,
 	n: star.name,
 	p: star.position,
 	c: star.classification,
@@ -33,6 +35,7 @@ const convertGalaxy = (galaxy: ShortenedStar[] | Star[]): Star[] => {
 
 	return galaxy.map(
 		(star: ShortenedStar): Star => ({
+			id: star.i,
 			name: star.n,
 			position: star.p as Position,
 			classification: star.c as StarClassification,

@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import DashboardModule from '@/components/DashboardModule.vue';
 import { computed, onMounted, ref } from 'vue';
-import { convertGalaxy } from '@/GalaxyGenerator/GalaxyJsonHandlers';
+
 import type { Star } from '@/types/Star';
 
+import { convertGalaxy } from '@/GalaxyGenerator/GalaxyJsonHandlers';
+import useDragAndZoom from '@/composables/UseDragAndZoom';
+
+import DashboardModule from '@/components/DashboardModule.vue';
 import MapInfo from './components/MapInfo.vue';
 import MapStar from './components/MapStar.vue';
 
 import galaxy from '@/data/galaxy.json';
-
-import useDragAndZoom from '@/composables/UseDragAndZoom';
-
 const stars = convertGalaxy(galaxy);
 
 const content = ref(undefined);
@@ -34,15 +34,12 @@ const { scale, onStartDrag, isDragging, onZoom, xOffset, yOffset } =
 	useDragAndZoom(content, minScale);
 
 onMounted(() => {
-	// Scale.value = minScale.value;
-	scale.value = 1;
+	scale.value = minScale.value;
 });
 
 const onSelectStar = (star: Star) => {
 	selectedStar.value = star;
 	if (content.value === undefined) return;
-	const containerElement = content.value as HTMLElement;
-	const rect = containerElement.getBoundingClientRect();
 
 	const x = -star.position.x * scale.value;
 	const y = -star.position.y * scale.value + 80;

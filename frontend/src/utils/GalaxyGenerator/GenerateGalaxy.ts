@@ -1,6 +1,6 @@
 import type { Star } from '@/types/Star';
 import { randomNumberGenerator } from '@/utils/RandomNumberGenerator';
-import generateStar from '@/GalaxyGenerator/GenerateStar';
+import generateStar from '@/utils/GalaxyGenerator/GenerateStar';
 import calculateDistanceBetweenStars from '@/utils/CalculateDistanceBetweenStars';
 
 type GalaxyParameters = {

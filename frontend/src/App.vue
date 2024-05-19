@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import StarMap from './components/Modules/StarMap/StarMap.vue';
+import MapPage from '@/pages/MapPage.vue';
 </script>
 
 <template>
 	<div class="centered">
-		<StarMap />
+		<MapPage />
 	</div>
 </template>
 

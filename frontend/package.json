@@ -6,12 +6,13 @@
 	"scripts": {
 		"dev": "vite",
 		"preview": "vite preview",
-		"generate-galaxy": "tsx src/GalaxyGenerator/GalaxyGenerator.ts",
+		"generate-galaxy": "tsx src/utils/GalaxyGenerator/GalaxyGenerator.ts",
 		"test": "eslint . --fix && vue-tsc && stylelint 'src/**/*.css' --fix",
 		"prepare": "husky",
 		"husky": "eslint . && vue-tsc && stylelint 'src/**/*.css'"
 	},
 	"dependencies": {
+		"pinia": "^2.1.7",
 		"vue": "^3.3.11"
 	},
 	"devDependencies": {

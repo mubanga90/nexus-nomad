@@ -1,9 +1,9 @@
-import starStats from './StarStats';
 import type { Star, StarClassification } from '@/types/Star';
+import { type GalaxyParameters } from '@/utils/GalaxyGenerator/GenerateGalaxy';
+import starStats from '@/utils/GalaxyGenerator/StarStats';
 import capitalizeString from '@/utils/CapitalizeString';
 import normalDistribution from '@/utils/NormalDistribution';
-import { type GalaxyParameters } from '@/GalaxyGenerator/GenerateGalaxy';
-import generateStarPosition from '@/GalaxyGenerator/GenerateStarPosition';
+import generateStarPosition from '@/utils/GalaxyGenerator/GenerateStarPosition';
 
 // eslint-disable-next-line max-lines-per-function
 const generateStar = (

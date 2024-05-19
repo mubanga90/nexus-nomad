@@ -13,7 +13,22 @@ const properties = defineProps({
 		required: true,
 		default: 1,
 	},
+	isCurrentStar: {
+		type: Boolean,
+		required: false,
+		default: false,
+	},
 });
+
+const emit = defineEmits(['set-current-star', 'plot-route']);
+
+const handleSetStar = () => {
+	emit('set-current-star', properties.selectedStar);
+};
+
+const handlePlotRoute = () => {
+	emit('plot-route', properties.selectedStar);
+};
 </script>
 
 <template>
@@ -21,10 +36,20 @@ const properties = defineProps({
 		v-if="selectedStar"
 		class="info"
 		:style="{
-			transform: `translate(calc(${selectedStar.position.x}px + 50%), calc(${selectedStar.position.y}px - 100%))  scale(${1 / scale}) translateY(calc(-16px * ${scale})`,
+			transform: `translate(calc(${selectedStar.position.x}px - 50%), calc(${selectedStar.position.y}px - 100%))  scale(${1 / scale}) translateY(calc(-16px * ${scale})`,
 		}"
 	>
-		<h2 class="header">{{ selectedStar.name }}</h2>
+		<h2 class="header">
+			<span class="name">
+				{{ selectedStar.name }}
+			</span>
+
+			<template v-if="!isCurrentStar">
+				<i class="icon iconoir-select-point-3d" @click="handleSetStar" />
+				<i class="icon iconoir-bridge-3d" @click="handlePlotRoute" />
+			</template>
+			<i v-else class="iconoir-map-pin" />
+		</h2>
 		<div class="content">
 			<ul>
 				<li>
@@ -41,7 +66,7 @@ const properties = defineProps({
 .info {
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 0;
 	transform-origin: bottom center;
 
 	width: 15rem;
@@ -68,10 +93,30 @@ const properties = defineProps({
 	}
 
 	.header {
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+
 		margin: 0;
 		padding: 0.5rem 1rem;
+
 		font-size: 1.25rem;
+
 		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+
+		> .name {
+			flex-grow: 2;
+		}
+
+		> .icon {
+			cursor: pointer;
+			opacity: 0.5;
+			transition: opacity 0.2s ease-in-out;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
 	}
 
 	.content {

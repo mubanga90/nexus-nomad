@@ -5,7 +5,7 @@ const properties = defineProps({
 </script>
 
 <template>
-	<div class="module starmap">
+	<div class="module">
 		<h1 class="header">{{ name }}</h1>
 		<div ref="container" class="content">
 			<slot></slot>

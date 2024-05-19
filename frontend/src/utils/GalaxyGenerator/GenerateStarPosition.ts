@@ -1,6 +1,6 @@
 import type Position from '@/types/Position';
 import normalDistribution from '@/utils/NormalDistribution';
-import { type GalaxyParameters } from '@/GalaxyGenerator/GenerateGalaxy';
+import { type GalaxyParameters } from '@/utils/GalaxyGenerator/GenerateGalaxy';
 
 const generateStarPosition = (
 	parameters: GalaxyParameters,

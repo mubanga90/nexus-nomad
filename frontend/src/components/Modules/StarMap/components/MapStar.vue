@@ -11,28 +11,21 @@ const properties = defineProps({
 </script>
 
 <template>
-	<div
+	<circle
 		class="star"
 		:class="star.classification"
-		:style="{
-			top: star.position.y + 'px',
-			left: star.position.x + 'px',
-		}"
-	></div>
+		:cx="star.position.x"
+		:cy="star.position.y"
+		r="1vw"
+	></circle>
 </template>
 
 <style scoped lang="postcss">
 .star {
 	cursor: pointer;
-
 	position: absolute;
 	transform: translate(calc(-50%), -50%);
-
-	width: 11px;
-	height: 11px;
-
-	background-color: white;
-	border-radius: 50%;
+	fill: white;
 
 	&.O {
 		opacity: 1;

@@ -3,7 +3,7 @@ import { ref, type Ref, type ComputedRef } from 'vue';
 // eslint-disable-next-line max-lines-per-function
 const useDragAndZoom = (
 	content: Ref<HTMLElement | undefined>,
-	minScale: ComputedRef<number>
+	minScale: Ref<number>
 ) => {
 	const scale = ref(1);
 	const xOffset = ref(0);

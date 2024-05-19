@@ -1,41 +1,61 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+
+import usePlayerStore from '@/store/Player';
 
 import type { Star } from '@/types/Star';
-
-import { convertGalaxy } from '@/GalaxyGenerator/GalaxyJsonHandlers';
 import useDragAndZoom from '@/composables/UseDragAndZoom';
 
-import DashboardModule from '@/components/DashboardModule.vue';
 import MapInfo from './components/MapInfo.vue';
 import MapStar from './components/MapStar.vue';
+import calculateViewBoxAndScale from './helpers/CalculateViewBoxAndScale';
+import lerp from '@/utils/Lerp';
+import findPath from '@/utils/AStar';
 
-import galaxy from '@/data/galaxy.json';
-const stars = convertGalaxy(galaxy);
+const playerStore = usePlayerStore();
+const { currentStarIndex } = storeToRefs(playerStore);
+
+const stars = ref<Star[]>(inject('$galaxy')!);
 
 const content = ref(undefined);
 const selectedStar = ref<Star | undefined>(undefined);
+const minScale = ref(1);
+const viewbox = ref<number>();
+const xOffsetTarget = ref(0);
+const yOffsetTarget = ref(0);
 
-const minScale = computed(() => {
-	if (!content.value) return 1;
-	const containerElement = content.value as HTMLElement;
-	// eslint-disable-next-line unicorn/no-array-reduce
-	const galaxyWidth = stars.reduce(
-		(max, star) => Math.max(max, star.position.x, star.position.y),
-		0
-	);
+const path = ref<Star[]>([]);
 
-	const scale = containerElement.clientHeight / (galaxyWidth * 2);
-
-	return scale;
-});
+let moveAnimationFrame: number | undefined;
 
 const { scale, onStartDrag, isDragging, onZoom, xOffset, yOffset } =
 	useDragAndZoom(content, minScale);
 
 onMounted(() => {
-	scale.value = minScale.value;
+	const { calculatedMinScale, calculatedViewBox } = calculateViewBoxAndScale(
+		content.value!,
+		stars.value
+	);
+	scale.value = calculatedMinScale;
+	minScale.value = calculatedMinScale;
+	viewbox.value = calculatedViewBox;
 });
+
+const lerpMove = () => {
+	xOffset.value = lerp(xOffset.value, xOffsetTarget.value, 0.4);
+	yOffset.value = lerp(yOffset.value, yOffsetTarget.value, 0.4);
+	if (
+		Math.abs(xOffset.value - xOffsetTarget.value) > 0.1 ||
+		Math.abs(yOffset.value - yOffsetTarget.value) > 0.1
+	) {
+		moveAnimationFrame = requestAnimationFrame(lerpMove);
+		return;
+	}
+
+	xOffset.value = xOffsetTarget.value;
+	yOffset.value = yOffsetTarget.value;
+};
 
 const onSelectStar = (star: Star) => {
 	selectedStar.value = star;
@@ -44,41 +64,84 @@ const onSelectStar = (star: Star) => {
 	const x = -star.position.x * scale.value;
 	const y = -star.position.y * scale.value + 80;
 
-	xOffset.value = x;
-	yOffset.value = y;
+	xOffsetTarget.value = x;
+	yOffsetTarget.value = y;
+
+	moveAnimationFrame = requestAnimationFrame(lerpMove);
 };
+
+const handleScroll = (event: WheelEvent) => {
+	onZoom(event);
+	if (moveAnimationFrame) cancelAnimationFrame(moveAnimationFrame);
+};
+
+const hanldePointerDown = (event: PointerEvent) => {
+	onStartDrag(event);
+	if (moveAnimationFrame) cancelAnimationFrame(moveAnimationFrame);
+};
+
+defineExpose({
+	onSelectStar,
+});
 </script>
 
 <template>
-	<DashboardModule name="Star Map">
-		<div ref="content">
+	<div ref="content" class="star-map">
+		<div
+			class="container"
+			:class="{ dragging: isDragging }"
+			@wheel="handleScroll"
+			@pointerdown="hanldePointerDown"
+		>
 			<div
-				class="container"
-				:class="{ dragging: isDragging }"
-				@wheel="onZoom"
-				@pointerdown="onStartDrag"
+				class="anchor"
+				:style="{
+					transform: `translate(${xOffset}px, ${yOffset}px) scale(${scale}) `,
+				}"
 			>
-				<div
-					class="anchor"
-					:style="{
-						transform: `translate(${xOffset}px, ${yOffset}px) scale(${scale}) `,
-					}"
+				<svg
+					v-if="viewbox"
+					class="stars"
+					:viewBox="`-${viewbox} -${viewbox} ${viewbox} ${viewbox}`"
+					:width="viewbox"
+					:height="viewbox"
 				>
+					<polyline
+						v-if="path.length > 0"
+						:points="
+							path
+								.map((star) => `${star.position.x}, ${star.position.y}`)
+								.join(' ')
+						"
+					/>
 					<MapStar
 						v-for="star in stars"
 						:key="star.id"
 						:star="star"
 						@click="() => onSelectStar(star)"
 					></MapStar>
-					<MapInfo :selected-star="selectedStar" :scale="scale" />
-				</div>
+				</svg>
+				<MapInfo
+					:selected-star="selectedStar"
+					:scale="scale"
+					@set-current-star="(star) => (currentStarIndex = star.id)"
+					@plot-route="
+						(star) => (path = findPath(stars, currentStarIndex, star.id, 500))
+					"
+				/>
 			</div>
 		</div>
-	</DashboardModule>
+	</div>
 </template>
 
 <style scoped lang="postcss">
-.starmap .container {
+.star-map {
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+
+.container {
 	cursor: grab;
 
 	overflow: hidden;
@@ -86,7 +149,7 @@ const onSelectStar = (star: Star) => {
 	align-items: center;
 	justify-content: center;
 
-	height: 20rem;
+	height: 100%;
 
 	&.dragging {
 		cursor: grabbing;
@@ -95,6 +158,20 @@ const onSelectStar = (star: Star) => {
 	.anchor {
 		position: relative;
 	}
+
+	.stars {
+		position: absolute;
+		transform: translate(-50%, -50%);
+
+		polyline {
+			transform: translate(-50%, -50%);
+
+			opacity: 0.5;
+
+			fill: none;
+			stroke: white;
+			stroke-width: 0.5vw;
+		}
+	}
 }
 </style>
-@/composables/UseDragAndZoom
